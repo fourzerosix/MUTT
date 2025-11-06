@@ -59,8 +59,8 @@ Starting in Lmod 8.7.54+, there is a complete “Gen2” tracking solution that 
 Use `SitePackage.lua` to send a message to syslog  
 
 1. `sudo mkdir -p /etc/lmod && sudo chown root:root /etc/lmod &&sudo chmod 0755 /etc/lmod`  
-1. Edit the default [SitePackage.lua](https://github.here.there.com/suepeter/MUTT/blob/main/SitePackage.lua) and place it in `/etc/lmod`
-1. Edit [`/etc/profile.d/modules.sh`](https://github.here.there.com/suepeter/MUTT/blob/main/modules.sh) to contain the line `export LMOD_PACKAGE_PATH=/etc/lmod`
+1. Place the customized [SitePackage.lua](https://github.com/fourzerosix/MUTT/blob/main/SitePackage.lua) in `/etc/lmod`
+1. Edit [`/etc/profile.d/modules.sh`](https://github.com/fourzerosix/MUTT/blob/main/modules.sh) to contain the line `export LMOD_PACKAGE_PATH=/etc/lmod`
 1. In a new session/shell, check to see if the configuration is picked up by Lmod:
    ```bash
    [suepeter@host ~]$ module --config 2>&1 | grep -i sitepackage
@@ -86,7 +86,7 @@ Use `SitePackage.lua` to send a message to syslog
 
 ### STEP 2
 Configure syslog
-1. Edit `/etc/rsyslog.d/` on a test/client node by adding the [`module-usage-forward.conf`](https://github.here.there.com/suepeter/MUTT/blob/main/module-usage-forward.conf) configuration file and restarting `rsyslog`
+1. Edit `/etc/rsyslog.d/` on a test/client node by adding the [`module-usage-forward.conf`](https://github.com/fourzerosix/MUTT/blob/main/module-usage-forward.conf) configuration file and restarting `rsyslog`
    ```bash
    [suepeter@client ~]$ sudo vi /etc/rsyslog.d/module-usage-forward.conf
 
@@ -124,7 +124,7 @@ Configure syslog
 
 ### STEP 3
 Setup the daemon **back on the central logging-host**
-1. Edit `/etc/rsyslog.d/` by adding the [`module-usage-tracking.conf`](https://github.here.there.com/suepeter/MUTT/blob/main/module-usage-tracking.conf) configuration file and restarting `rsyslog`
+1. Edit `/etc/rsyslog.d/` by adding the [`module-usage-tracking.conf`](https://github.com/fourzerosix/MUTT/blob/main/module-usage-tracking.conf) configuration file and restarting `rsyslog`
    ```bash
    [suepeter@host ~]$ sudo vi /etc/rsyslog.d/module-usage-tracking.conf
 
@@ -222,7 +222,7 @@ Setup the daemon **back on the central logging-host**
    ```
    
 ### STEP 5
-1. Setup the logrotate daemon in `/etc/logrotate.d` by adding the [`module-usage`](https://github.here.there.com/suepeter/MUTT/blob/main/module-usage) configuration file - *currently set to keep daily logs, rotated every 29 days*
+1. Setup the logrotate daemon in `/etc/logrotate.d` by adding the [`module-usage`](https://github.com/fourzerosix/MUTT/blob/main/module-usage) configuration file - *currently set to keep daily logs, rotated every 29 days*
    ```bash
    [suepeter@host ~]$ sudo vi /etc/logrotate.d/module-usage
    
@@ -320,7 +320,7 @@ Setup the daemon **back on the central logging-host**
    mysql> quit;
    Bye
    ```
-   <mark>***NIAID HPC specific inner-step***</mark>  
+   <mark>***environment specific inner-step***</mark>  
    | File                   | Purpose                                                             |
    |------------------------|---------------------------------------------------------------------|
    | **SitePackage.lua**    | Defines the hook that logs events via syslog.                       |
@@ -336,7 +336,7 @@ Setup the daemon **back on the central logging-host**
    ```bash
    [root@host lmod-tracking]# git clone https://github.com/TACC/Lmod.git && mv Lmod/contrib/tracking_module_usage/gen_2/* . && rm -rf Lmod/
    ```
-1. Replace the Lmod provided script with our own custom [`store_module_data`](https://github.here.there.com/suepeter/MUTT/blob/main/store_module_data) file
+1. Replace the Lmod provided script with our own custom [`store_module_data`](https://github.com/fourzerosix/MUTT/blob/main/store_module_data) file
 >[!NOTE]
 >At this point, our log format is the standard syslog prefix followed by the `ModuleUsage[...]` tag and `key=value` pairs - which is the correct Lmod tracking format — but
 >the `store_module_data parser` is choking in attempt to retrieve the host field from the wrong place. It expects a “`syshost`” string early in the log, but in our case the hostname is already present in the syslog prefix (*e.g., `client`*) and also provided as `host=client` at the end of the message. Due to testing w/the `logger` command, our log line doesn’t always contain a `host=` field, so when `dataT.get('host')` returns `None`, the function `syshost()` tries to do `None.split('.')`, which raises the `AttributeError`.
