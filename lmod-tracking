@@ -1,0 +1,6 @@
+# /etc/cron.d/lmod-tracking - belljs - 2025-10-25
+# Run monthly on the 1st at 23:11
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/lmod-tracking
+
+0 23 1 * * service_account /opt/lmod-tracking/delete_old_records --keepMonths 12 --yes --confFn /opt/lmod-tracking/bigskylmod_db.conf > /opt/lmod-tracking/delete.log 2>&1
