@@ -14,8 +14,8 @@ Starting in Lmod 8.7.54+, there is a complete “Gen2” tracking solution that 
 *Sample output*:
    ```
    Oct 23 13:39:55 host GoodLawd_ModuleUsage[1039369]: user=suepeter module=miniconda3/25.1.1-2-6fzuizg path=/path/to/spack/linux-rocky9-x86_64/Core/miniconda3/25.1.1-2-6fzuizg.lua host=host jobid=interactive time=1761248395.978473
-   Oct 23 13:40:34 host GoodLawd_ModuleUsage[1039636]: user=johnsonshat module=infrastructure/1.0.0-python3.12.2 path=/path/to/conda/infrastructure/1.0.0-python3.12.2.lua host=host jobid=interactive time=1761248434.848468
-   Oct 23 13:53:31 host GoodLawd_ModuleUsage[1041234]: user=gottschalkjk module=py-cachetools/5.2.0-k2kfdmp path=/path/to/spack/linux-rocky9-x86_64/Core/py-cachetools/5.2.0-k2kfdmp.lua host=host jobid=interactive time=1761249208.841783
+   Oct 23 13:40:34 host GoodLawd_ModuleUsage[1039636]: user=seymourbutts module=infrastructure/1.0.0-python3.12.2 path=/path/to/conda/infrastructure/1.0.0-python3.12.2.lua host=host jobid=interactive time=1761248434.848468
+   Oct 23 13:53:31 host GoodLawd_ModuleUsage[1041234]: user=eileendover module=py-cachetools/5.2.0-k2kfdmp path=/path/to/spack/linux-rocky9-x86_64/Core/py-cachetools/5.2.0-k2kfdmp.lua host=host jobid=interactive time=1761249208.841783
    ```
 5. A cron job runs `store_module_data` (from Lmod’s `contrib/tracking_module_usage/gen_2`) to push logs into a MySQL database.  
 6. Finally, you run `analyzeLmodDB` to query “`counts`”, “`usernames`”, or “`modules_used_by`” over date ranges.  
