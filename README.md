@@ -407,7 +407,7 @@ Once data is being written to the database you can now start analyzing the data.
 
    Module path                               Syshost    Distinct Users
    -----------                               -------    --------------
-   /path/to/conda/beast.lua    ['%']                   1
+   /path/to/conda/beast.lua                    ['%']           1
    
    
    Number of entries:  1
@@ -419,13 +419,13 @@ Once data is being written to the database you can now start analyzing the data.
 
    Module path                               Syshost    User Name
    -----------                               -------    ---------
-   /path/to/conda/beast.lua    ['%']      suepeter
+   /path/to/conda/beast.lua                   ['%']      suepeter
    ```
    ```bash
    [root@host lmod-tracking]# ./analyzeLmodDB --sqlPattern 'suepeter' modules_used_by
 
-   Module path                                                                                       Syshost    User Name
-   -----------                                                                                       -------    ---------
+   Module path                                                                        Syshost    User Name
+   -----------                                                                        -------    ---------
    /path/to/conda/beast.lua                                                            ['%']      suepeter
    /path/to/spack/linux-rocky9-x86_64/Core/gcc-runtime/11.3.1-pdjx7f4.lua              ['%']      suepeter
    /path/to/spack/linux-rocky9-x86_64/Core/gcc/13.2.0-tviiimi.lua                      ['%']      suepeter
