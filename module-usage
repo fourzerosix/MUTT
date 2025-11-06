@@ -1,0 +1,8 @@
+/var/log/module-usage.log {
+   missingok
+   copytruncate
+   rotate 29
+   daily
+   create 644 root root
+   notifempty
+}
