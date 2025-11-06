@@ -1,0 +1,6 @@
+# /etc/cron.d/lmod-tracking-store
+# Run daily at 04:44 to load module usage data
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/lmod-tracking
+
+44 4 * * * service_account /opt/lmod-tracking/store_module_data --delete --confFn /opt/lmod-tracking/GoodLawdlmod_db.conf /var/log/module-usage.log-* > /opt/lmod-tracking/store.log 2>&1
